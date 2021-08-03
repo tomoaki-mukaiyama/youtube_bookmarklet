@@ -1,4 +1,5 @@
 javascript: (() => {
+    
     var newStyle = document.createElement('style');
     newStyle.type = 'text/css';
     newStyle.innerText = 'a:focus{outline: none; border-style: solid; border-width: 10px; border-color: #E71D36;}';
@@ -10,9 +11,12 @@ javascript: (() => {
 
     gridUx();
 
-    if (document.querySelector("ytd-rich-section-renderer")) {
-        document.querySelector("ytd-rich-section-renderer").remove();
-    }
+    var unnecessaryContents = document.querySelectorAll("ytd-rich-section-renderer");
+    if (unnecessaryContents) {
+        unnecessaryContents.forEach(node => {
+            node.style.display = "none";
+        });
+    };
 
     document.querySelector("#contents").querySelector("#thumbnail").focus();
 
@@ -27,10 +31,14 @@ javascript: (() => {
 
             document.querySelectorAll("#primary")[0].addEventListener("keydown", function (event) {
                 var num = document.querySelectorAll("#primary")[0].firstElementChild.getAttribute("style").split(":")[1].slice(0, 1);
-                var thumbnails = document.querySelectorAll('.yt-simple-endpoint.inline-block.style-scope.ytd-thumbnail');
-                    thumbnails = Array.from(thumbnails);
-                    var activeThumbnail = thumbnails.find(node => node === document.activeElement);
-                    var currentIndex = thumbnails.indexOf(activeThumbnail);
+                var nodes = document.querySelectorAll('.yt-simple-endpoint.inline-block.style-scope.ytd-thumbnail');
+                nodes = Array.from(nodes);
+                thumbnails = nodes.filter(node => {
+                    return node.closest("ytd-rich-item-renderer.style-scope.ytd-rich-grid-renderer");
+                });
+
+                var activeThumbnail = thumbnails.find(node => node === document.activeElement);
+                var currentIndex = thumbnails.indexOf(activeThumbnail);
 
                 if (event.key === "w") {
                     if (thumbnails[parseInt(i) - parseInt(num)]) {
@@ -61,11 +69,13 @@ javascript: (() => {
     };
 
     function tabIndex() {
-        if (document.querySelector("ytd-rich-section-renderer")) {
-            document.querySelector("ytd-rich-section-renderer").remove();
-        }
 
-        var thumbnails = document.querySelectorAll('.yt-simple-endpoint.inline-block.style-scope.ytd-thumbnail');
+        var nodes = document.querySelectorAll('.yt-simple-endpoint.inline-block.style-scope.ytd-thumbnail');
+        nodes = Array.from(nodes);
+        thumbnails = nodes.filter(node => {
+            return node.closest("ytd-rich-item-renderer.style-scope.ytd-rich-grid-renderer");
+        });
+
         thumbnails.forEach(thumbnail => {
             if (thumbnail.getAttribute("tabindex") === "1") {
                 return;
@@ -80,18 +90,13 @@ javascript: (() => {
             }
         });
     }
-
     const target = document.getElementById('contents');
     const observer = new MutationObserver(records => {
         tabIndex();
-
     });
-
 
     observer.observe(target, {
         childList: true
     })
 
 })()
-
-

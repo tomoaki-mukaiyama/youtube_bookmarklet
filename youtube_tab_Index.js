@@ -112,3 +112,6 @@ const observer = new MutationObserver(records => {
 observer.observe(target, {
     childList: true
 })
+
+//ブックマークレット
+javascript:(function(url){s=document.createElement('script');s.src=url;document.body.appendChild(s);})('https://tomoaki-mukaiyama.github.io/youtube_bookmarklet/tabindex_format.js')

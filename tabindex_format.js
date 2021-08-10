@@ -4,3 +4,4 @@ var g=document.querySelector("#guide");g&&g.remove();document.querySelector("#pa
 "a"===d.key?thumbnails[parseInt(a)-1]&&(a=parseInt(b)-1,thumbnails[a].focus()):"d"===d.key&&thumbnails[parseInt(a)+1]&&(a=parseInt(b)+1,thumbnails[a].focus())},!0)}})();
 function h(){var c=document.querySelectorAll(".yt-simple-endpoint.inline-block.style-scope.ytd-thumbnail");c=Array.from(c);thumbnails=c.filter(function(a){return a.closest("ytd-rich-item-renderer.style-scope.ytd-rich-grid-renderer")});thumbnails.forEach(function(a){"1"!==a.getAttribute("tabindex")&&(a.setAttribute("tabindex","1"),a.addEventListener("focus",function(){document.activeElement.scrollIntoView({behavior:"instant",block:"center"})}))})}var l=document.getElementById("contents");
 (new MutationObserver(function(){h()})).observe(l,{childList:!0});
+

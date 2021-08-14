@@ -35,13 +35,13 @@ document.querySelector("#contents").querySelector("#thumbnail").focus();
         //css追加　フォーカスの時の外枠
         var newStyle = document.createElement('style');
         newStyle.type = 'text/css';
-        newStyle.innerText = 'a:focus{outline: none; border-style: solid; border-width: 7px; border-color: #E71D36;}';
+        newStyle.innerText = 'a:focus{outline: 15px solid red;}';
         document.getElementsByTagName('HEAD').item(0).appendChild(newStyle);
 
         //サムネの親要素にキー入力を受け付けるイベントリスナーを設置
         var i = 0;
         document.querySelectorAll("#primary")[0].addEventListener("keydown", function (event) {
-            //列ごとの動画数を取得 num 列ごとの数が変わっても真上や真下の要素にアクセスするため
+            //列ごとの動画数を取得 num 
             var num = document.querySelectorAll("#primary")[0].firstElementChild.getAttribute("style").split(":")[1].slice(0, 1);
             var nodes = document.querySelectorAll('.yt-simple-endpoint.inline-block.style-scope.ytd-thumbnail');
             nodes = Array.from(nodes);
@@ -112,6 +112,3 @@ const observer = new MutationObserver(records => {
 observer.observe(target, {
     childList: true
 })
-
-//ブックマークレット
-javascript:(function(url){s=document.createElement('script');s.src=url;document.body.appendChild(s);})('https://tomoaki-mukaiyama.github.io/youtube_bookmarklet/tabindex_format.js')
